@@ -10,15 +10,18 @@ class NoteScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
     final descriptionController = TextEditingController();
+    final vCommentController = TextEditingController();
 
     if (note != null) {
       titleController.text = note!.title;
       descriptionController.text = note!.description;
+      vCommentController.text = note!.vcomment;
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(note == null ? 'Add a note' : 'Edit note'),
+        title: Text(
+            note == null ? 'Enter vehical details' : 'Edit vehical details'),
         centerTitle: true,
       ),
       body: Padding(
@@ -29,46 +32,71 @@ class NoteScreen extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 40),
               child: Center(
                 child: Text(
-                  'What are you thinking about?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  'Insert New Vehical Record',
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.teal),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 40.0),
+              padding: const EdgeInsets.only(bottom: 20.0),
               child: TextFormField(
                 controller: titleController,
-                maxLines: 1,
+                maxLines: 2,
                 decoration: const InputDecoration(
-                    hintText: 'Title',
-                    labelText: 'Note title',
+                    hintText: 'wp CAE 33XX',
+                    labelText: 'Vehical Number',
                     border: OutlineInputBorder(
                         borderSide: BorderSide(
                           color: Colors.green,
                           width: 0.75,
                         ),
                         borderRadius: BorderRadius.all(
-                          Radius.circular(10.0),
+                          Radius.circular(7.0),
                         ))),
               ),
             ),
+
+            Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: TextFormField(
+                controller: descriptionController,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                    hintText: '(ie. CAR, VAN)',
+                    labelText: 'Vehical Type',
+                    border: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.green,
+                          width: 0.75,
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(7.0),
+                        ))),
+              ),
+            ),
+
+            //Text Field form for vehicale
             TextFormField(
-              controller: descriptionController,
+              controller: vCommentController,
               decoration: const InputDecoration(
-                  hintText: 'Type here the note',
-                  labelText: 'Note description',
+                  hintText: 'Add a Discription',
+                  labelText: 'Car discription',
                   border: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: Colors.white,
-                        width: 0.75,
+                        width: 3,
                       ),
                       borderRadius: BorderRadius.all(
-                        Radius.circular(10.0),
+                        Radius.circular(7.0),
                       ))),
               keyboardType: TextInputType.multiline,
               onChanged: (str) {},
-              maxLines: 5,
+              maxLines: 2,
             ),
+
             const Spacer(),
             Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
@@ -79,13 +107,18 @@ class NoteScreen extends StatelessWidget {
                     onPressed: () async {
                       final title = titleController.value.text;
                       final description = descriptionController.value.text;
+                      final vcomment = vCommentController.value.text;
 
-                      if (title.isEmpty || description.isEmpty) {
+                      if (title.isEmpty ||
+                          description.isEmpty ||
+                          vcomment.isEmpty) {
                         return;
                       }
-
                       final Note model = Note(
-                          title: title, description: description, id: note?.id);
+                          title: title,
+                          description: description,
+                          vcomment: vcomment,
+                          id: note?.id);
                       if (note == null) {
                         await DatabaseHelper.addNote(model);
                       } else {
@@ -98,11 +131,11 @@ class NoteScreen extends StatelessWidget {
                         shape: MaterialStateProperty.all(
                             const RoundedRectangleBorder(
                                 side: BorderSide(
-                                  color: Colors.white,
-                                  width: 0.75,
+                                  color: Color.fromARGB(255, 38, 205, 214),
+                                  width: 3,
                                 ),
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(10.0),
+                                  Radius.circular(7.0),
                                 )))),
                     child: Text(
                       note == null ? 'Save' : 'Edit',

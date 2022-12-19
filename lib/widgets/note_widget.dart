@@ -7,9 +7,9 @@ class NoteWidget extends StatelessWidget {
   final VoidCallback onLongPress;
   const NoteWidget(
       {Key? key,
-        required this.note,
-        required this.onTap,
-        required this.onLongPress})
+      required this.note,
+      required this.onTap,
+      required this.onLongPress})
       : super(key: key);
 
   @override
@@ -31,7 +31,7 @@ class NoteWidget extends StatelessWidget {
                   child: Text(
                     note.title,
                     style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
+                        fontSize: 18, fontWeight: FontWeight.w500),
                   ),
                 ),
                 const Padding(
@@ -41,6 +41,15 @@ class NoteWidget extends StatelessWidget {
                   ),
                 ),
                 Text(note.description,
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.w400)),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                  child: Divider(
+                    thickness: 1,
+                  ),
+                ),
+                Text(note.vcomment,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w400))
               ],

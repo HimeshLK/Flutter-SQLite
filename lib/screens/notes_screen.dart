@@ -15,19 +15,26 @@ class _NotesScreenState extends State<NotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 226, 226, 226),
         appBar: AppBar(
-          title: const Text('Notes'),
+          title: const Text('Vehical Records'),
           centerTitle: true,
         ),
+
+        //Action Button In Screens Screen
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             await Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const NoteScreen()));
             setState(() {});
           },
-          child: const Icon(Icons.add),
+          child: const Icon(Icons.taxi_alert),
         ),
+
+        //New Button
+
+        //End Of new Button
+
         body: FutureBuilder<List<Note>?>(
           future: DatabaseHelper.getAllNotes(),
           builder: (context, AsyncSnapshot<List<Note>?> snapshot) {
@@ -54,8 +61,7 @@ class _NotesScreenState extends State<NotesScreen> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text(
-                                  'Are you sure you want to delete this note?'),
+                              title: const Text('Do you want to delete this?'),
                               actions: [
                                 ElevatedButton(
                                   style: ButtonStyle(
